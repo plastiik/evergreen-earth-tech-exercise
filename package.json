@@ -1,0 +1,25 @@
+{
+  "name": "evergreen-earth-tech-exercise",
+  "version": "1.0.0",
+  "description": "Tech-Test",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/plastiik/evergreen-earth-tech-exercise.git"
+  },
+  "author": "Bruno Mota",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/plastiik/evergreen-earth-tech-exercise/issues"
+  },
+  "homepage": "https://github.com/plastiik/evergreen-earth-tech-exercise#readme",
+  "devDependencies": {
+    "jest-cli": "^29.7.0"
+  }
+}
