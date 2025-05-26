@@ -1,7 +1,7 @@
 import QuoteService from './src/services/quoteService';
 import HousesService from './src/services/housesService';
 
-async function main() {
+export async function main() {
     try {
         console.log('Calculating quotes for all houses...\n');
         const houses = HousesService.getAllHouses();
@@ -28,7 +28,9 @@ async function main() {
 }
 
 // Run the main function
-main().catch(error => {
-    console.error('Fatal error:', error);
-    process.exit(1);
-});
+if (require.main === module) {
+    main().catch(error => {
+        console.error('Fatal error:', error);
+        process.exit(1);
+    });
+}
