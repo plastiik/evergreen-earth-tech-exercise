@@ -81,15 +81,15 @@ describe('HousesService', () => {
 
         it('should calculate power heat loss correctly', () => {
             const powerHeatLoss = HousesService.calculatePowerHeatLoss(testHouse, testWeatherData);
-            // Heat loss = 100 * 2 * 1.5 = 300
-            // Power heat loss = 300 / 2000 = 0.15
-            expect(powerHeatLoss).toBe(0.15);
+            expect(powerHeatLoss).toBe(0.15); // 300 / 2000 = 0.15
         });
 
         it('should handle decimal values correctly', () => {
             const decimalHouse: House = {
-                ...testHouse,
+                submissionId: 'test-id',
+                designRegion: 'Test Region',
                 floorArea: 125.5,
+                age: '1967 - 1975',
                 heatingFactor: 1.75,
                 insulationFactor: 1.25
             };
@@ -102,7 +102,7 @@ describe('HousesService', () => {
             const powerHeatLoss = HousesService.calculatePowerHeatLoss(decimalHouse, decimalWeatherData);
             // Heat loss = 125.5 * 1.75 * 1.25 = 274.53125
             // Power heat loss = 274.53125 / 1852.5 = 0.14819500674763833
-            expect(powerHeatLoss).toBeCloseTo(0.1481, 4);
+            expect(powerHeatLoss).toBe(0.14819500674763833);
         });
 
         it('should throw error when degree days is 0', () => {
