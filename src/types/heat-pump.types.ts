@@ -9,4 +9,4 @@ export interface HeatPump {
     costs: HeatPumpCost[];
 }
 
-export type HeatPumps = HeatPump[]; 
+export type HeatPumps = HeatPump[];
