@@ -1,4 +1,5 @@
 import type { House, Houses } from '../types/house.types';
+import type { WeatherData } from '../types/weather.types';
 import HousesService from './housesService';
 
 describe('HousesService', () => {
@@ -52,6 +53,78 @@ describe('HousesService', () => {
 
             const heatLoss = HousesService.calculateHeatLoss(testHouse);
             expect(heatLoss).toBe(274.53125);
+        });
+    });
+
+    describe('calculatePowerHeatLoss', () => {
+        const testHouse: House = {
+            submissionId: 'test-id',
+            designRegion: 'Test Region',
+            floorArea: 100,
+            age: '1967 - 1975',
+            heatingFactor: 2,
+            insulationFactor: 1.5
+        };
+
+        const testWeatherData: WeatherData = {
+            location: {
+                location: 'Test Region',
+                degreeDays: 2000,
+                groundTemp: 10,
+                postcode: 'TE1 1ST',
+                lat: 51.5074,
+                lng: -0.1278
+            },
+            degreeDays: 2000,
+            groundTemp: 10
+        };
+
+        it('should calculate power heat loss correctly', () => {
+            const powerHeatLoss = HousesService.calculatePowerHeatLoss(testHouse, testWeatherData);
+            // Heat loss = 100 * 2 * 1.5 = 300
+            // Power heat loss = 300 / 2000 = 0.15
+            expect(powerHeatLoss).toBe(0.15);
+        });
+
+        it('should handle decimal values correctly', () => {
+            const decimalHouse: House = {
+                ...testHouse,
+                floorArea: 125.5,
+                heatingFactor: 1.75,
+                insulationFactor: 1.25
+            };
+
+            const decimalWeatherData: WeatherData = {
+                ...testWeatherData,
+                degreeDays: 1852.5
+            };
+
+            const powerHeatLoss = HousesService.calculatePowerHeatLoss(decimalHouse, decimalWeatherData);
+            // Heat loss = 125.5 * 1.75 * 1.25 = 274.53125
+            // Power heat loss = 274.53125 / 1852.5 = 0.14819500674763833
+            expect(powerHeatLoss).toBeCloseTo(0.1481, 4);
+        });
+
+        it('should throw error when degree days is 0', () => {
+            const invalidWeatherData: WeatherData = {
+                ...testWeatherData,
+                degreeDays: 0
+            };
+
+            expect(() => {
+                HousesService.calculatePowerHeatLoss(testHouse, invalidWeatherData);
+            }).toThrow('Heating degree days must be greater than 0');
+        });
+
+        it('should throw error when degree days is negative', () => {
+            const invalidWeatherData: WeatherData = {
+                ...testWeatherData,
+                degreeDays: -100
+            };
+
+            expect(() => {
+                HousesService.calculatePowerHeatLoss(testHouse, invalidWeatherData);
+            }).toThrow('Heating degree days must be greater than 0');
         });
     });
 
