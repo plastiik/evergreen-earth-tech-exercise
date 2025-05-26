@@ -2,12 +2,12 @@
   "name": "evergreen-earth-tech-exercise",
   "version": "1.0.0",
   "description": "Tech-Test",
-  "main": "index.js",
+  "main": "index.ts",
   "directories": {
     "test": "tests"
   },
   "scripts": {
-    "test": "npm test"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/plastiik/evergreen-earth-tech-exercise#readme",
   "devDependencies": {
-    "jest-cli": "^29.7.0"
+    "@types/jest": "^29.5.14",
+    "jest-cli": "^29.7.0",
+    "ts-jest": "^29.3.4"
   }
 }
