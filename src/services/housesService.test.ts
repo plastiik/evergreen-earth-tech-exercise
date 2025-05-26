@@ -25,6 +25,36 @@ describe('HousesService', () => {
         });
     });
 
+    describe('calculateHeatLoss', () => {
+        it('should calculate heat loss correctly for a single house', () => {
+            const testHouse: House = {
+                submissionId: 'test-id',
+                designRegion: 'Test Region',
+                floorArea: 100,
+                age: '1967 - 1975',
+                heatingFactor: 2,
+                insulationFactor: 1.5
+            };
+
+            const heatLoss = HousesService.calculateHeatLoss(testHouse);
+            expect(heatLoss).toBe(300);
+        });
+
+        it('should handle decimal values correctly', () => {
+            const testHouse: House = {
+                submissionId: 'test-id',
+                designRegion: 'Test Region',
+                floorArea: 125.5,
+                age: '1967 - 1975',
+                heatingFactor: 1.75,
+                insulationFactor: 1.25
+            };
+
+            const heatLoss = HousesService.calculateHeatLoss(testHouse);
+            expect(heatLoss).toBe(274.53125);
+        });
+    });
+
     describe('testing data integrity', () => {
         it('should have valid numeric values', () => {
             const houses = HousesService.getAllHouses();
