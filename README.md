@@ -126,12 +126,6 @@ Example response:
 
 ## Development
 
-### Running in Development Mode
-To run the application in development mode with automatic reloading:
-```bash
-npm run dev
-```
-
 ### Testing
 The project uses Jest for testing. To run tests with coverage:
 ```bash
