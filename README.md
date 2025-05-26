@@ -8,9 +8,51 @@ The idea of the exercise is to solve the following problem, we don't expect it t
 
  We're **not** looking for a UI! You can use either plain JavaScript or TypeScript.
 
-The provided API is mildly unstable by design, but if you cannot get it to work at all, please get in touch.
+## Project Setup
 
-You can either submit via a public repository (e.g. github/gitlab/etc.) or via zipped folder.
+1. Clone the repository or Fork it :)
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Run the application:
+```bash
+npm start
+```
+
+4. Run tests:
+```bash
+npm test
+```
+
+## Services Architecture
+
+The project is organized into several services, each handling specific functionality:
+
+### HousesService
+- Calculates heat loss for properties using floor area, heating factor, and insulation factor
+- Calculates power heat loss using weather data
+- Manages house data and calculations
+- Located in `src/services/housesService.ts`
+
+### WeatherDataService
+- Interfaces with the external Weather Data API
+- Retrieves heating degree days for given locations
+- Handles API and error responses
+- Located in `src/services/weatherDataService.ts`
+
+### HeatPumpService
+- Manages heat pump data and selection
+- Located in `src/services/heatPumpService.ts`
+
+### QuoteService
+- Orchestrates the quote generation process
+- Matches appropriate heat pumps to properties based on power requirements
+- Handles cost calculations for installations
+- Combines data from other services to generate complete quotes
+- Handles formatting and presentation of quote information
+- Located in `src/services/quoteService.ts`
 
 ## Problem
 
@@ -69,7 +111,7 @@ x-api-key = f661f74e-20a7-4e9f-acfc-041cfb846505
 
 Example response:
 
-```
+```json
 {
     "location": {
         "location": "Borders (Boulmer)",
@@ -80,4 +122,29 @@ Example response:
         "lng": "-1.583"
     }
 }
+```
+
+## Development
+
+### Running in Development Mode
+To run the application in development mode with automatic reloading:
+```bash
+npm run dev
+```
+
+### Testing
+The project uses Jest for testing. To run tests with coverage:
+```bash
+npm run test:coverage
+```
+
+### Project Structure
+```
+.
+├── src/
+│   ├── config/            # Config files
+│   ├── services/          # Core services
+│   ├── types/             # TypeScript type definitions
+│   └── data/              # JSON data files
+└── index.ts              # Application entry point
 ```
